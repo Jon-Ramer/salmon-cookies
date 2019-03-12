@@ -1,45 +1,22 @@
 'use strict';
   
-  var first = {
-    name: "1st and Pike",
-    min_custs: 23,
-    max_custs: 65,
-    avg_purchase: 6.3,
-    total_sales: 0,
-    daily_purchases: [],
-  };
-  var second = {
-    name: "SEATAC",
-    min_custs: 3,
-    max_custs: 24,
-    avg_purchase: 1.2,
-    total_sales: 0,
-    daily_purchases: [],
-  };
-  var third = {
-    name: "Seattle Center",
-    min_custs: 11,
-    max_custs: 38,
-    avg_purchase: 3.7,
-    total_sales: 0,
-    daily_purchases: [],
-  };
-  var fourth = {
-    name: "Capitol Hill",
-    min_custs: 20,
-    max_custs: 38,
-    avg_purchase: 2.3,
-    total_sales: 0,
-    daily_purchases: [],
-  };
-  var fifth = {
-    name: "Alki",
-    min_custs: 2,
-    max_custs: 14,
-    avg_purchase: 3.6,
-    total_sales: 0,
-    daily_purchases: [],
-  };
+var num_stores = 5;
+var store = [];
+var num = 0;
+var time_of_day;
+var hour;
+var hourly_totals = [];
+
+function Store(name, min_custs, max_custs, avg_purchase, total_sales, store_open, store_close, daily_purchases){
+    this.name = name;
+    this.min_custs = min_custs;
+    this.max_custs = max_custs;
+    this.avg_purchase = avg_purchase;
+    this.total_sales = total_sales;
+    this.store_open = store_open;
+    this.store_close = store_close;
+    this.daily_purchases = daily_purchases;
+}
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -47,157 +24,88 @@ function getRandomIntInclusive(min, max) {
 return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-first.calculate_sales = function (){
-    for(var i = 0; i < 14; i++){
-        var random_custs = getRandomIntInclusive(this.min_custs, this.max_custs);
-        var random_sales = random_custs * this.avg_purchase;
-        first.total_sales = first.total_sales + random_sales;
-        this.daily_purchases.push(random_sales);
+var calculate_sales = function () {
+    for (var i = 0; i < (store[num].store_close - store[num].store_open); i++) {
+        var random_custs = getRandomIntInclusive(store[num].min_custs, store[num].max_custs);
+        var random_sales = random_custs * store[num].avg_purchase;
+        store[num].total_sales = store[num].total_sales + random_sales;
+        store[num].daily_purchases.push(random_sales);
+        hourly_totals[i] = hourly_totals[i] + random_sales;
     }
-};
+}
+
+var render = function () {
+    console.log('Store ' + store[num].name + ' to the page');
+
+    var store_ul = document.getElementById('by-store');
+    var tr_element = document.createElement('tr');
+    var th_element = document.createElement('th');
+    th_element.textContent = store[num].name;
+    tr_element.appendChild(th_element);
   
-first.render = function() {
-    console.log("first to the page");
-
-    var first_ul = document.getElementById("first-store");
-    var title_li = document.createElement("li");
-    var title_h3 = document.createElement("h3");
-
-    title_h3.textContent = first.name + " Hourly purchases";
-    first_ul.appendChild(title_h3);
-    for (var i = 0; i < this.daily_purchases.length; i++) {
-        var new_li = document.createElement("li");
-        var purchases = Math.floor(this.daily_purchases[i] + .5);
-        new_li.textContent = `Hour ${i + 6}:00 to ${i + 7}:00 purchases: ${purchases}`;
-        first_ul.appendChild(new_li);
+    for (var i = 0; i < store[num].daily_purchases.length; i++) {
+        var td_element = document.createElement('td');
+        hour = i + 6;
+        if (hour > 12) {hour = hour-12};
+        if (i > 5) {time_of_day='pm'} else {time_of_day='am'};
+        var purchases = Math.floor(store[num].daily_purchases[i] + .5);
+        td_element.textContent = purchases;
+        tr_element.appendChild(td_element);
     }
-    title_li.textContent = "Total: " + Math.floor(first.total_sales + .5);
-    first_ul.appendChild(title_li);
-};
+var td_element2 = document.createElement('td');
+td_element2.textContent = Math.floor(store[num].total_sales + .5);
+tr_element.appendChild(td_element2);
+var td_element3 = document.createElement('td');
+td_element3.textContent = Math.floor((store[num].total_sales/ 20) / (store[num].store_close - store[num].store_open) + .5);
+tr_element.appendChild(td_element3);
+table_element.appendChild(tr_element);
+}
 
-second.calculate_sales = function () {
-    for (var i = 0; i < 14; i++) {
-        var random_custs = getRandomIntInclusive(this.min_custs, this.max_custs);
-        var random_sales = random_custs * this.avg_purchase;
-        second.total_sales = second.total_sales + random_sales;
-        this.daily_purchases.push(random_sales);
-    }
-};
+// ===========================================
+// program code flow starts here
+// ===========================================
 
-second.render = function () {
-    console.log("second to the page");
-    
-    var second_ul = document.getElementById("second-store");
-    var title_li = document.createElement("li");
-    var title_h3 = document.createElement("h3");
+store[0] = new Store('1st and Pike', 23, 65, 6.3, 0, 6, 20, []);
+store[1] = new Store('SEATAC', 3, 24, 1.2, 0, 6, 20, []);
+store[2] = new Store('Seattle Center', 11, 38, 3.7, 0, 6, 20, []);
+store[3] = new Store('Capitol Hill', 20, 38, 2.3, 0, 6, 20, []);
+store[4] = new Store('Alki', 2, 14, 3.6, 0, 6, 20, []);
 
-    title_h3.textContent = second.name + " Hourly purchases";
-    second_ul.appendChild(title_h3);
-    for (var i = 0; i < this.daily_purchases.length; i++) {
-        var new_li = document.createElement("li");
-        var purchases = Math.floor(this.daily_purchases[i] + .5);
-        new_li.textContent = `Hour ${i + 6}:00 to ${i + 7}:00 purchases: ${purchases}`;
-        second_ul.appendChild(new_li);
-    }
-    title_li.textContent = "Total: " + Math.floor(second.total_sales + .5);
-    second_ul.appendChild(title_li);
-};
+// table first row
+var table_element = document.getElementById('nums-table');
+var tr_element1 = document.createElement('tr');
+var tr_element = document.createElement('tr');
+var th_element = document.createElement('th');
+var tr_element2 = document.createElement('tr');
 
-third.calculate_sales = function () {
-    for (var i = 0; i < 14; i++) {
-        var random_custs = getRandomIntInclusive(this.min_custs, this.max_custs);
-        var random_sales = random_custs * this.avg_purchase;
-        third.total_sales = third.total_sales + random_sales;
-        this.daily_purchases.push(random_sales);
-    }
-};
+th_element.textContent = 'Branch name';
+tr_element.appendChild(th_element);
 
-third.render = function () {
-    console.log("third to the page");
-    
-    var third_ul = document.getElementById("third-store");
-    var title_li = document.createElement("li");
-    var title_h3 = document.createElement("h3");
+for (var i = 0; i < 14; i++) {
+    var td_element = document.createElement('td');
+    hour = i + 6;
+    if (hour > 12) {hour = hour-12};
+    if (i > 5) {time_of_day = 'pm'} else {time_of_day = 'am'};
+    td_element.textContent = hour + ':00 ' + time_of_day;
+    tr_element.appendChild(td_element);
+}
+var td_element2 = document.createElement('td');
+td_element2.textContent = 'Daily total';
+tr_element.appendChild(td_element2);
+var td_element3 = document.createElement('td');
+td_element3.textContent = 'Workers';
+tr_element.appendChild(td_element3);
+table_element.appendChild(tr_element);
 
-    title_h3.textContent = third.name + " Hourly purchases";
-    third_ul.appendChild(title_h3);
-    for (var i = 0; i < this.daily_purchases.length; i++) {
-        var new_li = document.createElement("li");
-        var purchases = Math.floor(this.daily_purchases[i] + .5);
-        new_li.textContent = `Hour ${i + 6}:00 to ${i + 7}:00 purchases: ${purchases}`;
-        third_ul.appendChild(new_li);
-    }
-    title_li.textContent = "Total: " + Math.floor(third.total_sales + .5);
-    third_ul.appendChild(title_li);
-};
+for (var i = 0; i < 14; i++) {
+    var td_element = document.createElement('td');
+    td_element.textContent = hourly_totals[i];
+    tr_element.appendChild(td_element);
+}
+table_element.appendChild(tr_element);
 
-fourth.calculate_sales = function () {
-    for (var i = 0; i < 14; i++) {
-        var random_custs = getRandomIntInclusive(this.min_custs, this.max_custs);
-        var random_sales = random_custs * this.avg_purchase;
-        fourth.total_sales = fourth.total_sales + random_sales;
-        this.daily_purchases.push(random_sales);
-    }
-};
-
-fourth.render = function () {
-    console.log("fourth to the page");
-    
-    var fourth_ul = document.getElementById("fourth-store");
-    var title_li = document.createElement("li");
-    var title_h3 = document.createElement("h3");
-
-    title_h3.textContent = fourth.name + " Hourly purchases";
-    fourth_ul.appendChild(title_h3);
-    for (var i = 0; i < this.daily_purchases.length; i++) {
-        var new_li = document.createElement("li");
-        var purchases = Math.floor(this.daily_purchases[i] + .5);
-        new_li.textContent = `Hour ${i + 6}:00 to ${i + 7}:00 purchases: ${purchases}`;
-        fourth_ul.appendChild(new_li);
-    }
-    title_li.textContent = "Total: " + Math.floor(fourth.total_sales + .5);
-    fourth_ul.appendChild(title_li);
-};
-
-fifth.calculate_sales = function () {
-    for (var i = 0; i < 14; i++) {
-        var random_custs = getRandomIntInclusive(this.min_custs, this.max_custs);
-        var random_sales = random_custs * this.avg_purchase;
-        fifth.total_sales = fifth.total_sales + random_sales;
-        this.daily_purchases.push(random_sales);
-    }
-};
-
-fifth.render = function () {
-    console.log("fifth to the page");
-    
-    var fifth_ul = document.getElementById("fifth-store");
-    var title_li = document.createElement("li");
-    var title_h3 = document.createElement("h3");
-
-    title_h3.textContent = fifth.name + " Hourly purchases";
-    fifth_ul.appendChild(title_h3);
-    for (var i = 0; i < this.daily_purchases.length; i++) {
-        var new_li = document.createElement("li");
-        var purchases = Math.floor(this.daily_purchases[i] + .5);
-        new_li.textContent = `Hour ${i + 6}:00 to ${i + 7}:00 purchases: ${purchases}`;
-        fifth_ul.appendChild(new_li);
-    }
-    title_li.textContent = "Total: " + Math.floor(fifth.total_sales + .5);
-    fifth_ul.appendChild(title_li);
-};
-
-first.calculate_sales(); 
-first.render();
-  
-second.calculate_sales();
-second.render();
-
-third.calculate_sales();
-third.render();
-
-fourth.calculate_sales();
-fourth.render();
-
-fifth.calculate_sales();
-fifth.render();
+for (var i = 0; i < num_stores; i++){
+    calculate_sales();
+    render();
+    num++;
+}
