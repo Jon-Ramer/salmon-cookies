@@ -2,35 +2,35 @@ img {
     display: block;
     height: 300px;
     width: 800px;
-    border: 2px salmon solid;
-    box-shadow: 10px 10px 10px salmon;
-    border-radius: 15px;
+    border: 2px rgb(87, 50, 5) solid;
+    border-radius: 10px;
     margin: auto;
+    align-content: center;
 }
 
 body {
-    background-color: bisque;
+    background-color: rgb(211, 181, 144)
 }
 
 p {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    color: brown;
+    font-family: 'Arial Narrow Bold', sans-serif
+    color: black;
     text-align: center;
 }
 
 h1 {
-    font-family: 'Questrial', sans-serif;
+    font-family: fantasy;
     font-display: auto;
-    font-size: 400%;
-    font-weight: 400px;
-    color: rgb(211, 181, 144);
+    font-size: 300%;
+    font-weight: 200px;
+    color: rgb(209, 118, 6);
     text-align: center;
 }
 
 h2, h3 {
-    font-family: 'Questrial', sans-serif;
+    font-family: Haettenschweiler, sans-serif;
     font-display: auto;
-    color: rgb(211, 181, 144);
+    color: rgb(209, 118, 6);
     text-align: center;
 }
 
@@ -50,7 +50,7 @@ tr:nth-child(1) {
 }
 
 tr:nth-child(2n) {
-    background-color: rgb(211, 181, 144);
+    background-color: rgb(250, 150, 200);
 }
 
 li {
@@ -70,13 +70,4 @@ li {
     border-bottom-style: ridge;
     margin-right: 26px;
     margin-left: 10px;
-} */
-
-/* ul[id = "capHill"] {
-    margin-left: 140px;
-    margin-right: 70px;
-}
-
-ul[id = "alki"] {
-    margin-left: 70x;
 } */

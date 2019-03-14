@@ -12,6 +12,7 @@ var grid_rows = [
     // first row (header) of table grid
 ];  
 var hourly_totals = [0];
+var add_store = document.getElementById('add-store');
 
 store[0] = new Store('1st and Pike', 23, 65, 6.3, 0, 6, 20, []);
 store[1] = new Store('SEATAC', 3, 24, 1.2, 0, 6, 20, []);
@@ -24,10 +25,33 @@ for (var i = 0; i < num_stores; i++){
     num++;
 }
 render();
+//add_store.addEventListener('submit', add_new_store);
 
 // ===========================================
-// program code flow ENDS here
+// functions code 
 // ===========================================
+
+function add_new_store(event) {
+    event.preventDefault();
+    
+    console.log('adding a new store');
+
+    var name = event.target.store_name.value;
+    var min_custs = event.target.min_custs.value;
+    var max_custs = event.target.max_custs.value;
+    var avg_purchase = event.target.avg_purchase.value;
+    var store_open = event.target.store_open.value;
+    var store_close = event.target.store_close.value;
+
+    console.log(name, min_custs, max_custs, avg_purchase, store_open, store_close);
+
+    var add_store = new Store(name, min_custs, max_custs, avg_purchase, store_open, store_close);
+
+    console.log(newStore);
+
+    Stores.push(newStore);
+    render();
+}
 
 function Store(name, min_custs, max_custs, avg_purchase, total_sales, store_open, store_close, daily_purchases){
     this.name = name;
@@ -87,45 +111,3 @@ function render() {
         table_element.appendChild(tr_element);
     }
 }
-
-// FORM CODE HERE ================================================================
-
-// ===============================
-// Practical Example
-// ===============================
-
-var add_store = document.getElementById('add-store');
-
-function add_new_store (event){
-    // var event = <event>
-    event.preventDefault();
-    console.log('adding a new store');
-
-    // Collect a value <event>.target.<name>.value
-
-    var name = event.target.store_name.value;
-    var min_custs = event.target.min_custs.value;
-    var max_custs = event.target.max_custs.value;
-    var avg_purchase = event.target.avg_purchase.value;
-    var store_open = event.target.store_open.value;
-    var store_close = event.target.store_close.value;
-
-    console.log(name, min_custs, max_custs, avg_purchase, store_open, store_close);
-
-    var add_store = new Store(name, min_custs, max_custs, avg_purchase, store_open, store_close);
-
-    console.log(newStore);
-    
-    // ==============================================
-
-    //add the new store to my all stores array
-    Stores.push(newStore);
-
-    // Clear an elements inner html
-    storeTable.innerHTML = '';
-    // then re-render the table
-    render();
-
-    }
-
-    add_store.addEventListener('submit', add_new_store);
