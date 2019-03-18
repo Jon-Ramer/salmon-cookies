@@ -1,15 +1,43 @@
+*{
+    box-sizing: border-box;
+}
+
+header {
+    width: 960px;
+    align-content: center;
+}
+
+header>ul {
+    display: inline-block;
+    float: right;
+    margin-top: 15px;
+    align-content: center;
+}
+
 img {
     display: block;
     border: 4px rgb(87, 50, 5) solid;
-    border-radius: 120px;
+    border-radius: 100px;
     margin: auto;
     align-content: center;
-
     z-index: 10;
 }
 
 body {
+    font-family: 'Arial Narrow Bold', sans-serif;    
     background-color: rgb(211, 181, 144);
+    background-image: url=('https://media-cdn.tripadvisor.com/media/photo-s/03/9e/91/fb/the-cookie-factory.jpg');
+    color: black;
+}
+
+body h3 a {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    text-align: center;
+}
+
+body>header>div {
+    display: inline-block;
 }
 
 p {
@@ -19,19 +47,31 @@ p {
 }
 
 h1 {
+    display: block;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-display: auto;
     font-size: 300%;
     font-weight: 200px;
     color: rgb(209, 118, 6);
     text-align: center;
+    background-image: 'https://media-cdn.tripadvisor.com/media/photo-s/03/9e/91/fb/the-cookie-factory.jpg'
 }
 
-h2, h3 {
+h2{
     font-family: Arial, Helvetica, sans-serif;
     font-display: auto;
     color: rgb(124, 70, 3);
     text-align: center;
+}
+
+h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    text-align: center;
+}
+
+h4 {
+    color: black;
 }
 
 a {
@@ -54,10 +94,10 @@ tr:nth-child(3n) {
 }
 
 li {
-    color: salmon;
+    color: black;
 }
 
-/* ul{
+ul{
     display: inline-block;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 200px;
@@ -70,4 +110,10 @@ li {
     border-bottom-style: ridge;
     margin-right: 26px;
     margin-left: 10px;
-} */
+}
+form legend {
+    font-family: Arial, Helvetica, sans-serif;
+}
+form p {
+    text-align: left;
+}

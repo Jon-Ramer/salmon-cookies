@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="style.css" type="text/css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    <h2 id="at-the-top">Store Throughput</h2>
+    <table id="nums-table"></table>
+    <hr></hr>
+    <form id="add-store">
+        <fieldset>
+        <legend>Add Coho Cookies Location</legend>
+        <p>
+            <label for="name"> Store Name</label> 
+            <input name="name" type="text" required>
+        </p>
+        <p>
+            <label for="min_custs"> Minimum Customers</label>
+            <input type="number" name="min_custs" required>
+        </p>
+        <p>
+            <label for="max_custs"> Maximum Customers</label>
+            <input type="number" name="max_custs" required>
+        </p>
+        <p>
+            <label for="avg_purchase"> Average Purchase</label>
+            <input type="number" name="avg_purchase" required>
+        </p>
+        <p>
+            <button type="submit">Submit</button>
+        </p>
+        </fieldset>
+    </form>
+    <h3><a href="index.html">BACK</a></h3>
+    <script src="stores.js"></script>
+</body>
+</html>
